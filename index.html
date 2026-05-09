@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOID. — Not Made To Fit In</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0d0d0d;
+  --black2:#111;
+  --black3:#181818;
+  --black4:#222;
+  --white:#ffffff;
+  --white2:#f5f5f5;
+  --gray:#888;
+  --gray2:#555;
+  --gray3:#333;
+  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+
+/* GRAIN */
+body::after{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:var(--grain);opacity:0.035;mix-blend-mode:overlay;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:52px;
+  background:rgba(13,13,13,0.96);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  backdrop-filter:blur(8px);
+}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:0.05em;color:var(--white);text-decoration:none;}
+.nav-logo span{color:var(--white);}
+.nav-center{display:flex;gap:2rem;list-style:none;}
+.nav-center a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;transition:color 0.2s;}
+.nav-center a:hover{color:var(--white);}
+.nav-right{display:flex;gap:2rem;align-items:center;}
+.nav-right a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;transition:color 0.2s;}
+.nav-right a:hover{color:var(--white);}
+
+/* HERO */
+.hero{
+  margin-top:52px;
+  position:relative;height:calc(100vh - 52px);
+  display:flex;align-items:flex-end;
+  overflow:hidden;background:var(--black2);
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#0a0a0a 0%,#1a1a1a 40%,#0d0d0d 100%);
+}
+/* Fake dark atmospheric photo feel */
+.hero-photo{
+  position:absolute;right:0;top:0;bottom:0;width:70%;
+  background:linear-gradient(to left,rgba(20,20,20,0) 0%,rgba(13,13,13,0.5) 60%,var(--black2) 100%),
+             linear-gradient(180deg,rgba(13,13,13,0.3) 0%,rgba(0,0,0,0.6) 100%);
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.hero-img-placeholder{
+  width:100%;height:100%;
+  background:
+    radial-gradient(ellipse 50% 80% at 60% 50%, #2a2a2a 0%, #111 60%, #0d0d0d 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:7rem;font-weight:900;
+  color:rgba(255,255,255,0.04);letter-spacing:0.05em;
+}
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 2.5rem 3rem;
+  max-width:560px;
+}
+.hero-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3.5rem,8vw,6.5rem);
+  font-weight:900;line-height:0.95;
+  text-transform:uppercase;
+  letter-spacing:-0.01em;
+  color:var(--white);
+  margin-bottom:1rem;
+}
+.hero-sub{
+  font-size:0.95rem;color:rgba(255,255,255,0.65);
+  margin-bottom:1.8rem;font-weight:400;letter-spacing:0.02em;
+}
+.hero-btns{display:flex;gap:0.75rem;flex-wrap:wrap;}
+.btn-white{
+  padding:0.7rem 1.6rem;background:var(--white);color:var(--black);
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;
+  border:none;cursor:pointer;transition:background 0.2s;
+  text-decoration:none;display:inline-block;
+}
+.btn-white:hover{background:var(--white2);}
+.btn-outline{
+  padding:0.7rem 1.6rem;background:transparent;color:var(--white);
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;
+  border:1.5px solid rgba(255,255,255,0.5);cursor:pointer;transition:border-color 0.2s,background 0.2s;
+  text-decoration:none;display:inline-block;
+}
+.btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,0.05);}
+.hero-bottom{
+  position:absolute;bottom:1.5rem;left:2.5rem;right:2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:2;
+}
+.hero-counter{font-size:0.7rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;display:flex;align-items:center;gap:0.75rem;}
+.hero-counter-line{width:40px;height:1px;background:rgba(255,255,255,0.3);}
+.hero-scroll{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);display:flex;align-items:center;gap:0.5rem;}
+.hero-tagline{position:absolute;bottom:3.5rem;right:2.5rem;z-index:2;text-align:right;}
+.hero-tagline p{font-size:0.65rem;color:rgba(255,255,255,0.3);letter-spacing:0.05em;line-height:1.6;}
+
+/* FEATURED COLLECTION */
+.featured{padding:3rem 2rem;background:var(--black);}
+.featured-label{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gray);margin-bottom:1.5rem;}
+.featured-grid{display:grid;grid-template-columns:280px 1fr;gap:1px;background:rgba(255,255,255,0.06);}
+.featured-left{
+  background:var(--black);
+  padding:2rem 1.5rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.featured-heading{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.8rem;font-weight:900;
+  text-transform:uppercase;line-height:1;
+  color:var(--white);margin-bottom:1.5rem;
+}
+.btn-explore-outline{
+  display:inline-block;padding:0.6rem 1.2rem;
+  border:1.5px solid rgba(255,255,255,0.5);
+  color:var(--white);font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:0.75rem;letter-spacing:0.15em;
+  text-transform:uppercase;text-decoration:none;
+  transition:border-color 0.2s,background 0.2s;width:fit-content;
+}
+.btn-explore-outline:hover{border-color:var(--white);background:rgba(255,255,255,0.05);}
+.cat-card{
+  background:var(--black2);position:relative;
+  aspect-ratio:3/4;overflow:hidden;cursor:pointer;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.cat-card-img{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,0.85) 100%),
+             #1a1a1a;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:4rem;
+  font-weight:900;color:rgba(255,255,255,0.06);
+}
+.cat-card-img.tee{background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%),linear-gradient(135deg,#1c1c1c,#282828);}
+.cat-card-img.hoodie{background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%),linear-gradient(135deg,#141414,#202020);}
+.cat-card-img.cargo{background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%),linear-gradient(135deg,#181818,#242424);}
+.cat-card-info{position:relative;z-index:1;padding:1rem 1rem 1rem;}
+.cat-card-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);margin-bottom:0.25rem;}
+.cat-card-link{font-size:0.65rem;letter-spacing:0.15em;color:rgba(255,255,255,0.5);text-transform:uppercase;display:flex;align-items:center;gap:0.3rem;cursor:pointer;transition:color 0.2s;}
+.cat-card-link:hover{color:var(--white);}
+.cat-card:hover .cat-card-img{filter:brightness(1.1);}
+
+/* BEST SELLERS */
+.bestsellers{padding:2.5rem 2rem;background:var(--black);}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--white);}
+.view-all{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:0.4rem;cursor:pointer;transition:color 0.2s;}
+.view-all:hover{color:var(--white);}
+.products-slider{position:relative;}
+.products-row{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  background:rgba(255,255,255,0.04);
+}
+.product-card{background:var(--black);cursor:pointer;position:relative;overflow:hidden;}
+.product-card:hover .product-img{transform:scale(1.04);}
+.product-img-wrap{overflow:hidden;aspect-ratio:3/4;background:var(--black3);position:relative;}
+.product-img{
+  width:100%;height:100%;
+  transition:transform 0.5s ease;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;
+  font-weight:900;letter-spacing:0.1em;
+  color:rgba(255,255,255,0.5);
+  position:relative;
+}
+/* Product image backgrounds */
+.p1{background:linear-gradient(160deg,#1a1a1a,#252525);}
+.p2{background:linear-gradient(160deg,#161616,#222);}
+.p3{background:linear-gradient(160deg,#1c1c1c,#262626);}
+.p4{background:linear-gradient(160deg,#2a2a2a,#333);}
+.p5{background:linear-gradient(160deg,#181818,#232323);}
+.product-info{padding:0.75rem 0.75rem 1rem;}
+.product-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--white);margin-bottom:0.2rem;}
+.product-price{font-size:0.8rem;color:rgba(255,255,255,0.6);letter-spacing:0.05em;}
+.slider-arrow{
+  position:absolute;top:40%;transform:translateY(-50%);
+  width:36px;height:36px;background:var(--black3);border:1px solid rgba(255,255,255,0.15);
+  color:var(--white);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:10;font-size:1rem;transition:background 0.2s;
+}
+.slider-arrow:hover{background:var(--black4);}
+.arrow-left{left:-18px;}
+.arrow-right{right:-18px;}
+
+/* FOOTER */
+footer{
+  padding:2rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--black);flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:0.05em;}
+.footer-links{display:flex;gap:2rem;list-style:none;}
+.footer-links a{font-size:0.65rem;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.2s;}
+.footer-links a:hover{color:var(--white);}
+.footer-copy{font-size:0.62rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;}
+
+/* PRODUCT PAGE OVERLAY */
+.overlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:2rem;
+}
+.overlay.active{display:flex;}
+.product-modal{
+  background:var(--black2);max-width:900px;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  max-height:90vh;overflow-y:auto;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.modal-images{background:var(--black3);display:flex;flex-direction:column;gap:1px;}
+.modal-main-img{
+  aspect-ratio:3/4;background:var(--black3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:3rem;
+  font-weight:900;color:rgba(255,255,255,0.07);letter-spacing:0.1em;
+}
+.modal-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;}
+.modal-thumb{
+  aspect-ratio:1;background:var(--black2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.6rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;cursor:pointer;
+}
+.modal-thumb.active{border:1px solid rgba(255,255,255,0.3);}
+.modal-info{padding:2rem;}
+.modal-breadcrumb{font-size:0.62rem;color:var(--gray);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2rem;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.5rem;}
+.modal-price{font-size:1.1rem;font-weight:500;margin-bottom:0.3rem;}
+.modal-tax{font-size:0.65rem;color:var(--gray);margin-bottom:1.5rem;}
+.modal-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);margin-bottom:0.5rem;}
+.size-grid{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.size-btn{
+  width:42px;height:42px;border:1px solid rgba(255,255,255,0.2);
+  background:transparent;color:var(--white);font-size:0.75rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;
+  letter-spacing:0.05em;cursor:pointer;transition:all 0.2s;
+}
+.size-btn.active{background:var(--white);color:var(--black);border-color:var(--white);}
+.size-btn:hover:not(.active){border-color:rgba(255,255,255,0.5);}
+.qty-row{display:flex;align-items:center;gap:0;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,0.2);width:fit-content;}
+.qty-btn{
+  width:36px;height:36px;background:transparent;border:none;
+  color:var(--white);font-size:1.1rem;cursor:pointer;transition:background 0.2s;
+}
+.qty-btn:hover{background:rgba(255,255,255,0.08);}
+.qty-num{width:40px;text-align:center;font-size:0.85rem;}
+.btn-cart{
+  width:100%;padding:0.9rem;background:var(--white);color:var(--black);
+  border:none;font-family:'Barlow Condensed',sans-serif;font-weight:800;
+  font-size:0.9rem;letter-spacing:0.2em;text-transform:uppercase;
+  cursor:pointer;margin-bottom:0.6rem;transition:background 0.2s;
+}
+.btn-cart:hover{background:#e8e8e8;}
+.btn-buy{
+  width:100%;padding:0.9rem;background:transparent;color:var(--white);
+  border:1.5px solid rgba(255,255,255,0.3);font-family:'Barlow Condensed',sans-serif;font-weight:800;
+  font-size:0.9rem;letter-spacing:0.2em;text-transform:uppercase;
+  cursor:pointer;margin-bottom:1.5rem;transition:border-color 0.2s;
+}
+.btn-buy:hover{border-color:var(--white);}
+.accordion-item{border-top:1px solid rgba(255,255,255,0.1);}
+.accordion-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0.75rem 0;cursor:pointer;
+  font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(255,255,255,0.7);
+}
+.accordion-header:hover{color:var(--white);}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;
+  width:36px;height:36px;background:var(--black3);border:1px solid rgba(255,255,255,0.1);
+  color:var(--white);font-size:1.2rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;
+}
+.modal-close:hover{background:var(--black4);}
+
+/* COLLECTIONS PAGE */
+.collections-page{padding:2rem;display:none;}
+.collections-page.active{display:block;}
+.collections-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;}
+.collections-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:0.06em;text-transform:uppercase;}
+.filters{display:flex;gap:1rem;align-items:center;}
+.filter-btn{
+  padding:0.4rem 0.8rem;border:1px solid rgba(255,255,255,0.2);
+  background:transparent;color:rgba(255,255,255,0.6);
+  font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;
+  display:flex;align-items:center;gap:0.3rem;transition:border-color 0.2s;
+}
+.filter-btn:hover{border-color:rgba(255,255,255,0.4);}
+.item-count{font-size:0.65rem;color:var(--gray);letter-spacing:0.1em;margin-left:auto;}
+.collections-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.04);}
+
+/* RECOMMENDATIONS */
+.recommendations{padding:2rem;border-top:1px solid rgba(255,255,255,0.06);}
+.rec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.04);}
+
+/* PAGE STATES */
+.page{display:none;}
+.page.active{display:block;}
+#home-page{display:block;}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{animation:fadeIn 0.6s ease forwards;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--gray3);}
+
+@media(max-width:900px){
+  .featured-grid{grid-template-columns:1fr 1fr;}.featured-left{grid-column:1/-1;}
+  .products-row{grid-template-columns:repeat(2,1fr);}
+  .collections-grid{grid-template-columns:repeat(2,1fr);}
+  .rec-grid{grid-template-columns:repeat(2,1fr);}
+  .product-modal{grid-template-columns:1fr;}
+  .nav-center{display:none;}
+}
+@media(max-width:600px){
+  .featured-grid{grid-template-columns:1fr;}
+  .products-row{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('home')">VOID.</a>
+  <ul class="nav-center">
+    <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+    <li><a href="#" onclick="showPage('shop')">New Drop</a></li>
+    <li><a href="#">Lookbook</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#">Search</a>
+    <a href="#">Account</a>
+    <a href="#" id="cart-link">Cart (0)</a>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="home-page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-photo">
+      <div class="hero-img-placeholder">VOID</div>
+    </div>
+    <div class="hero-content fade-in">
+      <h1 class="hero-title">NOT MADE<br>TO FIT IN.</h1>
+      <p class="hero-sub">For the ones who move different.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-white" onclick="showPage('shop');return false;">SHOP NOW</a>
+        <a href="#" class="btn-outline" onclick="showPage('shop');return false;">NEW DROP</a>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-counter">
+        <span>01</span>
+        <div class="hero-counter-line"></div>
+        <span>03</span>
+      </div>
+      <div class="hero-scroll">SCROLL DOWN ↓</div>
+    </div>
+    <div class="hero-tagline">
+      <p>Loud minds, quiet moves.</p>
+      <p>Est. 2024</p>
+    </div>
+  </section>
+
+  <!-- FEATURED COLLECTION -->
+  <section class="featured">
+    <p class="featured-label">Featured Collection</p>
+    <div class="featured-grid">
+      <div class="featured-left">
+        <div>
+          <h2 class="featured-heading">NEW DROP<br>AVAILABLE<br>NOW.</h2>
+        </div>
+        <a href="#" class="btn-explore-outline" onclick="showPage('shop');return false;">EXPLORE ALL</a>
+      </div>
+      <div class="cat-card" onclick="openProduct('Oversized Tee','SILENCE TEE','₹1,299.00','tee')">
+        <div class="cat-card-img tee">TEE</div>
+        <div class="cat-card-info">
+          <div class="cat-card-name">Oversized Tees</div>
+          <div class="cat-card-link">EXPLORE →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section class="bestsellers">
+    <div class="section-header">
+      <h2 class="section-title">BEST SELLERS</h2>
+      <div class="view-all" onclick="showPage('shop')">VIEW ALL ↓</div>
+    </div>
+    <div class="products-slider">
+      <div class="slider-arrow arrow-left" onclick="slide(-1)">‹</div>
+      <div class="products-row" id="products-row">
+        <div class="product-card" onclick="openProduct('Graphic Tee','CHAOS TEE','₹1,299.00','chaos')">
+          <div class="product-img-wrap"><div class="product-img p1">CHAOS</div></div>
+          <div class="product-info">
+            <div class="product-name">CHAOS TEE</div>
+            <div class="product-price">₹1,299.00</div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openProduct('Graphic Tee','REALMS TEE','₹1,299.00','realms')">
+          <div class="product-img-wrap"><div class="product-img p2">REALMS</div></div>
+          <div class="product-info">
+            <div class="product-name">REALMS TEE</div>
+            <div class="product-price">₹1,299.00</div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openProduct('Graphic Tee','FREEDOM TEE','₹1,299.00','freedom')">
+          <div class="product-img-wrap"><div class="product-img p3">FREE</div></div>
+          <div class="product-info">
+            <div class="product-name">FREEDOM TEE</div>
+            <div class="product-price">₹1,299.00</div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openProduct('Oversized Tee','DISCIPLINE TEE','₹1,299.00','disc')">
+          <div class="product-img-wrap"><div class="product-img p4">DISC</div></div>
+          <div class="product-info">
+            <div class="product-name">DISCIPLINE TEE</div>
+            <div class="product-price">₹1,299.00</div>
+          </div>
+        </div>
+        <div class="product-card" onclick="openProduct('Graphic Tee','NOCTURNAL TEE','₹1,299.00','noct')">
+          <div class="product-img-wrap"><div class="product-img p5">NOCT</div></div>
+          <div class="product-info">
+            <div class="product-name">NOCTURNAL TEE</div>
+            <div class="product-price">₹1,299.00</div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-arrow arrow-right" onclick="slide(1)">›</div>
+    </div>
+  </section>
+
+</div><!-- end home page -->
+
+<!-- SHOP PAGE -->
+<div class="page" id="shop-page" style="padding-top:52px;">
+  <div style="padding:2.5rem 2rem;">
+    <div class="collections-header">
+      <h2 class="collections-title">ALL COLLECTIONS</h2>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+      <button class="filter-btn">FILTER ▾</button>
+      <button class="filter-btn">SORT ▾</button>
+      <span class="item-count">6 ITEMS</span>
+    </div>
+    <div class="collections-grid">
+      <div class="product-card" onclick="openProduct('Graphic Tee','CHAOS TEE','₹1,299.00','chaos')">
+        <div class="product-img-wrap"><div class="product-img p1">CHAOS</div></div>
+        <div class="product-info"><div class="product-name">CHAOS TEE</div><div class="product-price">₹1,299.00</div></div>
+      </div>
+      <div class="product-card" onclick="openProduct('Graphic Tee','FREELMS TEE','₹1,299.00','realms')">
+        <div class="product-img-wrap"><div class="product-img p2">FREE</div></div>
+        <div class="product-info"><div class="product-name">FREELMS TEE</div><div class="product-price">₹1,299.00</div></div>
+      </div>
+      <div class="product-card" onclick="openProduct('Graphic Tee','SILENCE TEE','₹1,299.00','silence')">
+        <div class="product-img-wrap"><div class="product-img p3">SILENCE</div></div>
+        <div class="product-info"><div class="product-name">SILENCE TEE</div><div class="product-price">₹1,299.00</div></div>
+      </div>
+      <div class="product-card" onclick="openProduct('Oversized Tee','DISCIPLINE TEE','₹1,299.00','disc')">
+        <div class="product-img-wrap"><div class="product-img p4">DISC</div></div>
+        <div class="product-info"><div class="product-name">DISCIPLINE TEE</div><div class="product-price">₹1,299.00</div></div>
+      </div>
+      <div class="product-card" onclick="openProduct('Graphic Tee','NOCTURNAL TEE','₹1,299.00','noct')">
+        <div class="product-img-wrap"><div class="product-img p5">NOCT</div></div>
+        <div class="product-info"><div class="product-name">NOCTURNAL TEE</div><div class="product-price">₹1,299.00</div></div>
+      </div>
+      <div class="product-card" onclick="openProduct('Graphic Tee','BOUNDLESS TEE','₹1,299.00','bound')">
+        <div class="product-img-wrap"><div class="product-img p1">BOUND</div></div>
+        <div class="product-info"><div class="product-name">BOUNDLESS TEE</div><div class="product-price">₹1,299.00</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="overlay" id="product-overlay" onclick="closeOverlay(event)">
+  <div class="product-modal" id="product-modal" style="position:relative;">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-images">
+      <div class="modal-main-img" id="modal-main-img">VOID</div>
+      <div class="modal-thumbs">
+        <div class="modal-thumb active">VIEW 1</div>
+        <div class="modal-thumb">VIEW 2</div>
+        <div class="modal-thumb">VIEW 3</div>
+      </div>
+    </div>
+    <div class="modal-info">
+      <p class="modal-breadcrumb" id="modal-breadcrumb">HOME / SHOP / CHAOS TEE</p>
+      <h2 class="modal-title" id="modal-title">CHAOS TEE</h2>
+      <p class="modal-price" id="modal-price">₹1,299.00</p>
+      <p class="modal-tax">Inclusive of all taxes</p>
+      <p class="modal-label">SIZE</p>
+      <div class="size-grid">
+        <button class="size-btn">S</button>
+        <button class="size-btn active">M</button>
+        <button class="size-btn">L</button>
+        <button class="size-btn">XL</button>
+        <button class="size-btn">XXL</button>
+      </div>
+      <p class="modal-label">QUANTITY</p>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-num" id="qty-num">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <button class="btn-cart" onclick="addToCart()">ADD TO CART</button>
+      <button class="btn-buy">BUY IT NOW</button>
+      <div class="accordion-item">
+        <div class="accordion-header">PRODUCT DETAILS <span>+</span></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">SIZE & FIT <span>+</span></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">SHIPPING & DELIVERY <span>+</span></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">CARE INSTRUCTIONS <span>+</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">VOID.</span>
+  <ul class="footer-links">
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">New Drop</a></li>
+    <li><a href="#">Lookbook</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Instagram</a></li>
+  </ul>
+  <span class="footer-copy">© 2024 VOID. ALL RIGHTS RESERVED.</span>
+</footer>
+
+<script>
+let qty = 1;
+let cartCount = 0;
+
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(page+'-page').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function openProduct(type, name, price, code){
+  document.getElementById('modal-title').textContent = name;
+  document.getElementById('modal-price').textContent = price;
+  document.getElementById('modal-breadcrumb').textContent = 'HOME / SHOP / ' + name;
+  document.getElementById('modal-main-img').textContent = code.toUpperCase();
+  qty = 1;
+  document.getElementById('qty-num').textContent = qty;
+  document.getElementById('product-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('product-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeOverlay(e){
+  if(e.target === document.getElementById('product-overlay')) closeModal();
+}
+
+function changeQty(d){
+  qty = Math.max(1, qty + d);
+  document.getElementById('qty-num').textContent = qty;
+}
+
+function addToCart(){
+  cartCount += qty;
+  document.getElementById('cart-link').textContent = 'Cart (' + cartCount + ')';
+  closeModal();
+}
+
+document.querySelectorAll('.size-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    this.closest('.size-grid').querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.accordion-header').forEach(h=>{
+  h.addEventListener('click',function(){
+    const icon = this.querySelector('span');
+    icon.textContent = icon.textContent === '+' ? '−' : '+';
+  });
+});
+
+function slide(dir){
+  // visual feedback only
+  const row = document.getElementById('products-row');
+  row.style.opacity = '0.7';
+  setTimeout(()=>row.style.opacity='1', 300);
+}
+
+// Smooth fade in on scroll
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.product-card, .cat-card').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
